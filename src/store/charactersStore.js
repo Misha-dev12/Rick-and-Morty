@@ -8,9 +8,13 @@ export const useCharactersStore = defineStore('charactersStore', {
 		selectedCharacter: {}
 	}),
 	actions: {
-		async getCharacters() {
+		async getCharacters(page = 1) {
 			try {
-				const { data } = await axios.get('character');
+				const { data } = await axios.get('character', {
+					params: {
+						page
+					}
+				});
 				this.characters = data.results;
 				this.charactersCount = data.info.count;
 				localStorage.setItem('charactersCount', this.charactersCount.toString());
