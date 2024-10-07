@@ -13,6 +13,10 @@
 				<CharacterCard :character="character" />
 			</li>
 		</ul>
+		<ThePagination
+			:pages="20"
+			@on-click="getCharacters($event)"
+		/>
 	</div>
 </template>
 
@@ -21,10 +25,11 @@ import { mapState, mapActions } from 'pinia';
 import { useCharactersStore } from '@/store/charactersStore';
 
 import CharacterCard from '@/components/character/CharacterCard.vue';
+import ThePagination from '@/components/ThePagination.vue';
 
 export default {
 	name: 'CharactersPage',
-	components: { CharacterCard },
+	components: { CharacterCard, ThePagination },
 	computed: {
 		...mapState(useCharactersStore, ['characters'])
 	},
@@ -39,6 +44,7 @@ export default {
 
 <style lang="scss" scoped>
 .characters {
+	padding: 32px 16px 85px;
 	background-color: $dark-blue;
 	h1 {
 		color: $bg-light;
@@ -58,7 +64,6 @@ export default {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
 		gap: 16px;
-		padding: 32px 16px 85px;
 	}
 }
 </style>
