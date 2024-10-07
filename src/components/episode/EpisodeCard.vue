@@ -11,6 +11,8 @@
 			<div class="episode__info">
 				<span class="episode__text">Episode: {{ episode.episode }}</span>
 				<span class="episode__text">Air date: {{ episode.air_date }}</span>
+				<span v-if="episode.created">Created: {{ episode.created.split('T')[0] }}</span>
+				<span v-else>Created: Unknown</span>
 			</div>
 		</div>
 	</div>

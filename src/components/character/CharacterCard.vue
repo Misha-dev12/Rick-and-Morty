@@ -58,6 +58,7 @@ export default {
 <style lang="scss" scoped>
 .character {
 	display: flex;
+	align-items: center;
 	gap: 8px;
 	border-radius: 8px;
 	overflow: hidden;

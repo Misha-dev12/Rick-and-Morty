@@ -13,7 +13,7 @@ export const useCharactersStore = defineStore('charactersStore', {
 				const { data } = await axios.get('character');
 				this.characters = data.results;
 				this.charactersCount = data.info.count;
-				localStorage.setItem('charactersCount', this.charactersCount.toString());
+				localStorage.setItem('charactersCount', this.charactersCount);
 			} catch (error) {
 				console.error('(error get characters :', error);
 			}
@@ -44,8 +44,15 @@ export const useCharactersStore = defineStore('charactersStore', {
 					}
 				}
 			}
-
 			return numbers.join(',');
+		},
+		async getCharactersByIds(ids) {
+			try {
+				const { data } = await axios.get(`character/${ids}`);
+				this.characters = data;
+			} catch (error) {
+				console.error(error);
+			}
 		}
 	}
 });

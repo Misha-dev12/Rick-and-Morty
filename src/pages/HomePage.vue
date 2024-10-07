@@ -25,6 +25,8 @@
 <script>
 import { mapState, mapActions } from 'pinia';
 import { useCharactersStore } from '@/store/charactersStore';
+import { useLocationsStore } from '@/store/locationsStore';
+import { useEpisodesStore } from '@/store/episodesStore';
 
 import homeImg from '@/assets/images/bg.jpg';
 import CharacterCard from '@/components/character/CharacterCard.vue';
@@ -40,17 +42,23 @@ export default {
 	computed: {
 		...mapState(useCharactersStore, ['characters']),
 		isDataExists() {
-			return Boolean(localStorage.getItem('charactersCount'));
+			return Boolean(
+				localStorage.getItem('charactersCount') &&
+					localStorage.getItem('episodesCount') &&
+					localStorage.getItem('locationsCount')
+			);
 		}
 	},
 	async created() {
 		if (!this.isDataExists) {
-			await Promise.all([this.getCharacters()]);
+			await Promise.all([this.getCharacters(), this.getEpisodes(), this.getLocations()]);
 		}
 		await this.getRandomCharacters(12);
 	},
 	methods: {
-		...mapActions(useCharactersStore, ['getCharacters', 'getRandomCharacters'])
+		...mapActions(useCharactersStore, ['getCharacters', 'getRandomCharacters']),
+		...mapActions(useEpisodesStore, ['getEpisodes']),
+		...mapActions(useLocationsStore, ['getLocations'])
 	}
 };
 </script>

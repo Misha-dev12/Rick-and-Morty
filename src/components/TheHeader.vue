@@ -11,15 +11,25 @@
 		<div class="header__title">
 			<h2>The Rick and Morty App</h2>
 		</div>
-		<div class="header__user"></div>
+
+		<div class="header__login">
+			<RouterLink
+				:to="{ name: 'LoginPage' }"
+				class="header__login-link"
+			>
+				<Login />
+			</RouterLink>
+		</div>
+		<!-- <div class="header__user"></div> -->
 	</header>
 </template>
 
 <script>
 import MenuIcon from 'vue-material-design-icons/Menu.vue';
+import Login from 'vue-material-design-icons/Login.vue';
 export default {
 	name: 'TheHeader',
-	components: { MenuIcon },
+	components: { MenuIcon, Login },
 	props: {
 		modelValue: {
 			type: Boolean,

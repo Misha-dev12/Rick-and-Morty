@@ -11,7 +11,8 @@
 			<div class="location__info">
 				<span class="location__text">Type: {{ location.type }}</span>
 				<span class="location__text">Dimension: {{ location.dimension }}</span>
-				<span class="location__text">Created: {{ location.created }}</span>
+				<span v-if="location.created">Created: {{ location.created.split('T')[0] }}</span>
+				<span v-else>Created: Unknown</span>
 			</div>
 		</div>
 	</div>

@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'pinia';
+import { mapState } from 'pinia';
 import { useCharactersStore } from '@/store/charactersStore';
 import { useEpisodesStore } from '@/store/episodesStore';
 import { useLocationsStore } from '@/store/locationsStore';
@@ -19,16 +19,6 @@ export default {
 		...mapState(useCharactersStore, ['charactersCount']),
 		...mapState(useEpisodesStore, ['episodesCount']),
 		...mapState(useLocationsStore, ['locationsCount'])
-	},
-	async created() {
-		await this.getCharacters();
-		await this.getEpisodes();
-		await this.getLocations();
-	},
-	methods: {
-		...mapActions(useCharactersStore, ['getCharacters']),
-		...mapActions(useEpisodesStore, ['getEpisodes']),
-		...mapActions(useLocationsStore, ['getLocations'])
 	}
 };
 </script>

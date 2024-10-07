@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<LocationCard :location="locations" />
+		<EpisodeCard :episode="selectedEpisode" />
 
 		<div class="characters">
 			<h2>Residents:</h2>
@@ -20,24 +20,26 @@
 <script>
 import { mapState, mapActions } from 'pinia';
 import { useCharactersStore } from '@/store/charactersStore';
-import { useLocationsStore } from '@/store/locationsStore';
+import { useEpisodesStore } from '@/store/episodesStore';
+
 import CharacterCard from '@/components/character/CharacterCard.vue';
-import LocationCard from '@/components/location/LocationCard.vue';
+import EpisodeCard from '@/components/episode/EpisodeCard.vue';
 
 export default {
 	name: 'SingleEpisodePage',
-	components: { CharacterCard, LocationCard },
+	components: { CharacterCard, EpisodeCard },
 	computed: {
 		...mapState(useCharactersStore, ['characters']),
-		...mapState(useLocationsStore, ['locations'])
+		...mapState(useEpisodesStore, ['selectedEpisode'])
 	},
-	async created() {
-		await this.getCharacters();
-		await this.getLocations();
+	async mounted() {
+		await this.getEpisodeById(this.$route.params.id);
+		const ids = this.selectedEpisode.characters.map(episode => episode.split('/').at(-1));
+		await this.getCharactersByIds(ids);
 	},
 	methods: {
-		...mapActions(useCharactersStore, ['getCharacters']),
-		...mapActions(useLocationsStore, ['getLocations'])
+		...mapActions(useCharactersStore, ['getCharactersByIds']),
+		...mapActions(useEpisodesStore, ['getEpisodeById'])
 	}
 };
 </script>

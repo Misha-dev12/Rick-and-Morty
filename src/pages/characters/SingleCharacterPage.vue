@@ -1,7 +1,7 @@
 <template>
 	<CharacterInfo :character-info="selectedCharacter" />
 	<div class="episodes">
-		<p>Episodes with {{ episodes.name }}</p>
+		<p>Episodes with {{ selectedCharacter.name }}:</p>
 		<ul class="episodes__list">
 			<li
 				v-for="episode in episodes"

@@ -25,6 +25,14 @@ export const useEpisodesStore = defineStore('episodesStore', {
 			} catch (error) {
 				console.error(error);
 			}
+		},
+		async getEpisodesByIds(ids) {
+			try {
+				const { data } = await axios.get(`episode/${ids}`);
+				this.episodes = Array.isArray(data) ? data : [data];
+			} catch (error) {
+				console.error(error);
+			}
 		}
 	}
 });

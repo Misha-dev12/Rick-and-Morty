@@ -14,11 +14,10 @@
 			<div>
 				<span>Origin:</span>
 				<RouterLink
-					v-if="characterInfo.location?.url"
 					:to="{ name: 'SingleLocationPage', params: { id: lastKnownLocationId } }"
 					class="selected-character__origin-name"
 				>
-					{{ characterInfo.location?.name }}
+					{{ characterInfo.origin?.name || 'Unknown' }}
 				</RouterLink>
 			</div>
 			<div class="character__info">
@@ -37,7 +36,8 @@
 					{{ characterInfo.location?.name }}
 				</span>
 			</div>
-			<p>Created: {{ characterInfo.created }}</p>
+			<p v-if="characterInfo.created">Created: {{ characterInfo.created.split('T')[0] }}</p>
+			<p v-else>Created: Unknown</p>
 		</div>
 	</div>
 </template>
@@ -56,7 +56,7 @@ export default {
 	},
 	computed: {
 		lastKnownLocationId() {
-			return this.characterInfo.location?.url.split('/').at(-1);
+			return this.characterInfo.origin?.url.split('/').at(-1);
 		}
 	}
 };

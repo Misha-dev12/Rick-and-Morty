@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<LocationCard :location="locations" />
+		<LocationCard :location="selectedLocation" />
 
 		<div class="characters">
 			<h2>Residents:</h2>
@@ -29,15 +29,16 @@ export default {
 	components: { CharacterCard, LocationCard },
 	computed: {
 		...mapState(useCharactersStore, ['characters']),
-		...mapState(useLocationsStore, ['locations'])
+		...mapState(useLocationsStore, ['selectedLocation'])
 	},
-	async created() {
-		await this.getCharacters();
-		await this.getLocations();
+	async mounted() {
+		await this.getLocationById(this.$route.params.id);
+		const ids = this.selectedLocation.residents.map(episode => episode.split('/').at(-1));
+		await this.getCharactersByIds(ids);
 	},
 	methods: {
-		...mapActions(useCharactersStore, ['getCharacters']),
-		...mapActions(useLocationsStore, ['getLocations'])
+		...mapActions(useCharactersStore, ['getCharactersByIds']),
+		...mapActions(useLocationsStore, ['getLocationById'])
 	}
 };
 </script>
